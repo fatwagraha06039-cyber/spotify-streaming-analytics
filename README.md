@@ -138,14 +138,155 @@ The dashboard uses a **modular data layer** that can connect to multiple sources
 
 ## 📐 Analytics Methodology
 
-| Step | Description |
-|------|-------------|
-| **1. Data Collection** | Raw streaming history from Spotify (extended JSON export) |
-| **2. Data Cleaning** | Deduplication, timestamp normalization, missing value handling |
-| **3. Data Transformation** | Aggregation into KPIs, monthly/gente/time segments |
-| **4. Data Analysis** | Behavioral pattern identification, growth calculations, repeat-rate estimation |
-| **5. Visualization** | Interactive charts, KPI cards, heatmaps, tables |
-| **6. Insight Generation** | Automated executive summaries with business-style recommendations |
+```
+Data Collection (Spotify JSON Export)
+        ↓
+Data Cleaning (dedup, normalize timestamps, handle nulls)
+        ↓
+Data Transformation (aggregate by artist/genre/time/month)
+        ↓
+Exploratory Analysis (patterns, trends, outliers)
+        ↓
+Visualization (charts, KPIs, heatmaps)
+        ↓
+Insight Generation (executive summaries, recommendations)
+```
+
+| Step | Description | Technique |
+|------|-------------|-----------|
+| **1. Data Collection** | Raw streaming history from Spotify | Extended JSON export, API polling |
+| **2. Data Cleaning** | Remove duplicates, fix timestamps, handle missing values | Deduplication, ISO 8601 normalization |
+| **3. Data Transformation** | Aggregate into KPIs, segments | GroupBy, pivot tables, window functions |
+| **4. Exploratory Analysis** | Identify patterns, trends, outliers | Statistical summary, correlation, distribution |
+| **5. Visualization** | Interactive charts, KPI cards, heatmaps | Chart.js, canvas rendering |
+| **6. Insight Generation** | Auto-generated executive summaries | Template-based recommendation engine |
+
+---
+
+## 🗄️ SQL Showcase
+
+Below are example SQL queries that mirror the analytical logic used in this dashboard — demonstrating how this analysis would translate to a relational database environment.
+
+### Top 10 Most Streamed Artists
+
+```sql
+SELECT 
+    artist_name,
+    COUNT(*) AS total_streams,
+    SUM(duration_ms) / 60000 AS total_minutes,
+    ROUND(AVG(duration_ms) / 60000, 2) AS avg_track_length
+FROM streaming_history
+WHERE ts >= '2025-01-01'
+GROUP BY artist_name
+ORDER BY total_streams DESC
+LIMIT 10;
+```
+
+**Purpose:** Identify the most frequently streamed artists with engagement depth metrics.
+
+---
+
+### Monthly Streaming Trend
+
+```sql
+SELECT 
+    DATE_TRUNC('month', ts) AS month,
+    COUNT(*) AS streams,
+    ROUND(SUM(duration_ms) / 60000, 0) AS total_minutes,
+    ROUND(
+        (COUNT(*) - LAG(COUNT(*)) OVER (ORDER BY DATE_TRUNC('month', ts))) 
+        * 100.0 / LAG(COUNT(*)) OVER (ORDER BY DATE_TRUNC('month', ts)), 
+        2
+    ) AS growth_pct
+FROM streaming_history
+GROUP BY DATE_TRUNC('month', ts)
+ORDER BY month;
+```
+
+**Purpose:** Track monthly engagement and calculate month-over-month growth rate.
+
+---
+
+### Genre Distribution Analysis
+
+```sql
+SELECT 
+    genre,
+    COUNT(*) AS streams,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS pct_of_total,
+    RANK() OVER (ORDER BY COUNT(*) DESC) AS genre_rank
+FROM streaming_history s
+JOIN artists a ON s.artist_name = a.name
+GROUP BY genre
+ORDER BY streams DESC;
+```
+
+**Purpose:** Understand genre preference distribution and identify dominant listening categories.
+
+---
+
+### Peak Listening Hours
+
+```sql
+SELECT 
+    EXTRACT(HOUR FROM ts) AS hour_of_day,
+    COUNT(*) AS streams,
+    ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 2) AS pct_of_daily
+FROM streaming_history
+GROUP BY EXTRACT(HOUR FROM ts)
+ORDER BY streams DESC
+LIMIT 5;
+```
+
+**Purpose:** Identify peak engagement windows for content scheduling and user behavior modeling.
+
+---
+
+### Repeat Listening Rate (Artist Loyalty)
+
+```sql
+WITH artist_counts AS (
+    SELECT 
+        artist_name,
+        COUNT(*) AS play_count
+    FROM streaming_history
+    GROUP BY artist_name
+)
+SELECT 
+    CASE 
+        WHEN play_count >= 100 THEN 'High Loyalty'
+        WHEN play_count >= 30 THEN 'Medium Loyalty'
+        ELSE 'Low Loyalty'
+    END AS loyalty_tier,
+    COUNT(*) AS artist_count,
+    ROUND(SUM(play_count) * 100.0 / (SELECT SUM(play_count) FROM artist_counts), 2) AS pct_of_streams
+FROM artist_counts
+GROUP BY loyalty_tier
+ORDER BY pct_of_streams DESC;
+```
+
+**Purpose:** Segment artists by listener loyalty to understand repeat behavior patterns.
+
+---
+
+### Day-of-Week Engagement
+
+```sql
+SELECT 
+    TO_CHAR(ts, 'Day') AS day_of_week,
+    EXTRACT(DOW FROM ts) AS day_num,
+    COUNT(*) AS streams,
+    ROUND(AVG(COUNT(*)) OVER (), 0) AS avg_daily_streams,
+    CASE 
+        WHEN COUNT(*) > AVG(COUNT(*)) OVER () THEN 'Above Average'
+        ELSE 'Below Average'
+    END AS performance
+FROM streaming_history
+GROUP BY TO_CHAR(ts, 'Day'), EXTRACT(DOW FROM ts)
+ORDER BY day_num;
+```
+
+**Purpose:** Identify highest-engagement days for content release timing optimization.
 
 ---
 

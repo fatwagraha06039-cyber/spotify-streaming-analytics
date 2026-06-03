@@ -29,6 +29,12 @@ Understand user listening behavior at scale — identify peak engagement periods
 
 ---
 
+## 📸 Dashboard Preview
+
+> *Screenshot coming soon — deploy live and capture your dashboard in action.*
+
+---
+
 ## 🛠 Tools & Technologies
 
 | Layer | Technology |
@@ -160,7 +166,12 @@ Then open **http://localhost:8080** in your browser.
 
 ## 🌐 Live Demo
 
-🔗 **https://fatwagraha06039-cyber.github.io/spotify-streaming-analytics/**
+| Platform | URL |
+|----------|-----|
+| 🌍 GitHub Pages | [fatwagraha06039-cyber.github.io/spotify-streaming-analytics](https://fatwagraha06039-cyber.github.io/spotify-streaming-analytics/) |
+| ▲ Vercel | [Deploy with Vercel](https://vercel.com/new/clone?repository-url=https://github.com/fatwagraha06039-cyber/spotify-streaming-analytics) |
+
+> ⏱️ *GitHub Pages first build may take 1–5 minutes after enabling.*
 
 ---
 

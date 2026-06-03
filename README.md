@@ -31,7 +31,9 @@ Understand user listening behavior at scale — identify peak engagement periods
 
 ## 📸 Dashboard Preview
 
-> *Screenshot coming soon — deploy live and capture your dashboard in action.*
+![Spotify Analytics Dashboard](dashboard-preview.png)
+
+*A premium dark-theme analytics dashboard with real-time insights, predictive forecasting, and interactive visualizations.*
 
 ---
 

@@ -160,8 +160,7 @@ Then open **http://localhost:8080** in your browser.
 
 ## 🌐 Live Demo
 
-🔗 **https://your-username.github.io/spotify-streaming-analytics**  
-*(update after deploying to GitHub Pages / Vercel / Netlify)*
+🔗 **https://fatwagraha06039-cyber.github.io/spotify-streaming-analytics/**
 
 ---
 

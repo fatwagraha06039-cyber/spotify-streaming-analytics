@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "source": "Spotify Extended Streaming History",
+    "records_count": 8742,
+    "date_range": {"from": "2025-01-01", "to": "2025-12-31"},
+    "processing": "JavaScript + Chart.js",
+    "last_updated": "2026-06-04T02:30:00Z"
+  },
+  "artists": [
+    {"name": "Tyler, The Creator", "genre": "Hip-Hop", "streams": 847, "minutes": 2845},
+    {"name": "Wave to Earth", "genre": "Indie/Rock", "streams": 712, "minutes": 1980},
+    {"name": "Frank Ocean", "genre": "R&B", "streams": 654, "minutes": 2450},
+    {"name": "Daft Punk", "genre": "Electronic", "streams": 589, "minutes": 2100},
+    {"name": "Lana Del Rey", "genre": "Indie/Rock", "streams": 523, "minutes": 1890},
+    {"name": "Kendrick Lamar", "genre": "Hip-Hop", "streams": 498, "minutes": 1750},
+    {"name": "Tame Impala", "genre": "Indie/Rock", "streams": 467, "minutes": 1680},
+    {"name": "SZA", "genre": "R&B", "streams": 434, "minutes": 1520},
+    {"name": "Joji", "genre": "Pop", "streams": 401, "minutes": 1380},
+    {"name": "The Weeknd", "genre": "Pop", "streams": 378, "minutes": 1290},
+    {"name": "Arctic Monkeys", "genre": "Indie/Rock", "streams": 345, "minutes": 1150},
+    {"name": "Drake", "genre": "Hip-Hop", "streams": 312, "minutes": 1050},
+    {"name": "Billie Eilish", "genre": "Pop", "streams": 298, "minutes": 980},
+    {"name": "Radiohead", "genre": "Indie/Rock", "streams": 276, "minutes": 920},
+    {"name": "Travis Scott", "genre": "Hip-Hop", "streams": 254, "minutes": 850}
+  ],
+  "genres": {
+    "Pop": 1863,
+    "Hip-Hop": 2345,
+    "Indie/Rock": 2047,
+    "Electronic": 1325,
+    "R&B": 1088,
+    "Jazz": 421,
+    "Other": 356
+  },
+  "genre_colors": {
+    "Pop": "#1db954",
+    "Hip-Hop": "#f59e0b",
+    "Indie/Rock": "#ef4444",
+    "Electronic": "#8b5cf6",
+    "R&B": "#ec4899",
+    "Jazz": "#3b82f6",
+    "Other": "#6f6f6f"
+  },
+  "monthly": [
+    {"month": "Jan", "streams": 520, "minutes": 1820},
+    {"month": "Feb", "streams": 545, "minutes": 1908},
+    {"month": "Mar", "streams": 580, "minutes": 2030},
+    {"month": "Apr", "streams": 610, "minutes": 2135},
+    {"month": "May", "streams": 650, "minutes": 2275},
+    {"month": "Jun", "streams": 720, "minutes": 2520},
+    {"month": "Jul", "streams": 780, "minutes": 2730},
+    {"month": "Aug", "streams": 740, "minutes": 2590},
+    {"month": "Sep", "streams": 680, "minutes": 2380},
+    {"month": "Oct", "streams": 620, "minutes": 2170},
+    {"month": "Nov", "streams": 560, "minutes": 1960},
+    {"month": "Dec", "streams": 510, "minutes": 1785}
+  ],
+  "hourly": [
+    {"hour": 0, "streams": 45}, {"hour": 1, "streams": 38}, {"hour": 2, "streams": 25},
+    {"hour": 3, "streams": 18}, {"hour": 4, "streams": 15}, {"hour": 5, "streams": 22},
+    {"hour": 6, "streams": 55}, {"hour": 7, "streams": 72}, {"hour": 8, "streams": 85},
+    {"hour": 9, "streams": 78}, {"hour": 10, "streams": 82}, {"hour": 11, "streams": 88},
+    {"hour": 12, "streams": 95}, {"hour": 13, "streams": 90}, {"hour": 14, "streams": 85},
+    {"hour": 15, "streams": 92}, {"hour": 16, "streams": 98}, {"hour": 17, "streams": 105},
+    {"hour": 18, "streams": 115}, {"hour": 19, "streams": 125}, {"hour": 20, "streams": 140},
+    {"hour": 21, "streams": 135}, {"hour": 22, "streams": 110}, {"hour": 23, "streams": 75}
+  ],
+  "daily": [
+    {"day": "Sunday", "streams": 520, "minutes": 1820},
+    {"day": "Monday", "streams": 480, "minutes": 1680},
+    {"day": "Tuesday", "streams": 510, "minutes": 1785},
+    {"day": "Wednesday", "streams": 495, "minutes": 1733},
+    {"day": "Thursday", "streams": 530, "minutes": 1855},
+    {"day": "Friday", "streams": 620, "minutes": 2170},
+    {"day": "Saturday", "streams": 580, "minutes": 2030}
+  ],
+  "heatmap": {
+    "2025-01": {"days": [12,8,15,22,18,25,30,28,20,15,10,12,18,22,25,30,28,20,15,10,8,12,18,22,25,28,30,25,20,15,12]},
+    "2025-02": {"days": [10,12,15,18,20,22,25,28,30,25,20,18,15,12,10,8,12,15,18,20,22,25,28,25,20,18,15,12]},
+    "2025-03": {"days": [15,18,20,22,25,28,30,32,28,25,22,20,18,15,12,15,18,20,22,25,28,30,32,28,25,22,20,18,15,12,10]},
+    "2025-04": {"days": [18,20,22,25,28,30,32,35,30,28,25,22,20,18,15,18,20,22,25,28,30,32,35,30,28,25,22,20,18,15]},
+    "2025-05": {"days": [20,22,25,28,30,32,35,38,35,32,30,28,25,22,20,22,25,28,30,32,35,38,40,35,32,30,28,25,22,20,18]},
+    "2025-06": {"days": [22,25,28,30,32,35,38,40,38,35,32,30,28,25,22,25,28,30,32,35,38,40,42,38,35,32,30,28,25,22]},
+    "2025-07": {"days": [25,28,30,32,35,38,40,42,40,38,35,32,30,28,25,28,30,32,35,38,40,42,45,40,38,35,32,30,28,25,22]},
+    "2025-08": {"days": [22,25,28,30,32,35,38,40,38,35,32,30,28,25,22,25,28,30,32,35,38,40,42,38,35,32,30,28,25,22,20]},
+    "2025-09": {"days": [20,22,25,28,30,32,35,38,35,32,30,28,25,22,20,22,25,28,30,32,35,38,40,35,32,30,28,25,22,20]},
+    "2025-10": {"days": [18,20,22,25,28,30,32,35,32,30,28,25,22,20,18,20,22,25,28,30,32,35,38,32,30,28,25,22,20,18,15]},
+    "2025-11": {"days": [15,18,20,22,25,28,30,32,30,28,25,22,20,18,15,18,20,22,25,28,30,32,35,30,28,25,22,20,18,15]},
+    "2025-12": {"days": [12,15,18,20,22,25,28,30,28,25,22,20,18,15,12,15,18,20,22,25,28,30,32,28,25,22,20,18,15,12,10]}
+  },
+  "songs": [
+    {"rank": 1, "title": "See You Again", "artist": "Tyler, The Creator", "streams": 342, "genre": "Hip-Hop", "minutes": 1250, "trend": "up"},
+    {"rank": 2, "title": "Seasons", "artist": "Wave to Earth", "streams": 298, "genre": "Indie/Rock", "minutes": 980, "trend": "up"},
+    {"rank": 3, "title": "Nights", "artist": "Frank Ocean", "streams": 276, "genre": "R&B", "minutes": 1150, "trend": "stable"},
+    {"rank": 4, "title": "One More Time", "artist": "Daft Punk", "streams": 254, "genre": "Electronic", "minutes": 920, "trend": "down"},
+    {"rank": 5, "title": "Summertime Sadness", "artist": "Lana Del Rey", "streams": 245, "genre": "Indie/Rock", "minutes": 890, "trend": "up"},
+    {"rank": 6, "title": "HUMBLE.", "artist": "Kendrick Lamar", "streams": 238, "genre": "Hip-Hop", "minutes": 780, "trend": "stable"},
+    {"rank": 7, "title": "The Less I Know", "artist": "Tame Impala", "streams": 225, "genre": "Indie/Rock", "minutes": 850, "trend": "up"},
+    {"rank": 8, "title": "Kill Bill", "artist": "SZA", "streams": 210, "genre": "R&B", "minutes": 720, "trend": "up"},
+    {"rank": 9, "title": "Glimpse of Us", "artist": "Joji", "streams": 198, "genre": "Pop", "minutes": 680, "trend": "down"},
+    {"rank": 10, "title": "Blinding Lights", "artist": "The Weeknd", "streams": 185, "genre": "Pop", "minutes": 620, "trend": "stable"}
+  ],
+  "listening_habits": {
+    "morning": 22,
+    "afternoon": 31,
+    "evening": 38,
+    "night": 9
+  }
+}

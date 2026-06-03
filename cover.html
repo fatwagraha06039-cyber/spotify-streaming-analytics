@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; overflow:hidden; }
+  body {
+    font-family:'Inter',-apple-system,Segoe UI,sans-serif; color:#fff;
+    background:#07100b; position:relative;
+  }
+  .stage { position:absolute; inset:0;
+    background:
+      radial-gradient(820px 520px at 86% -8%, rgba(29,185,84,0.42), transparent 60%),
+      radial-gradient(620px 520px at 8% 108%, rgba(124,92,255,0.32), transparent 58%),
+      radial-gradient(520px 420px at 100% 100%, rgba(0,224,255,0.18), transparent 60%),
+      linear-gradient(135deg,#08130c 0%, #0a0a14 100%);
+  }
+  /* faint grid */
+  .stage::before { content:''; position:absolute; inset:0; opacity:.05;
+    background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+    background-size:46px 46px; mask-image:radial-gradient(circle at 50% 50%, #000 30%, transparent 80%); }
+
+  .pad { position:absolute; inset:0; padding:64px 70px; display:flex; flex-direction:column; justify-content:space-between; z-index:2; }
+
+  .top { display:flex; align-items:center; justify-content:space-between; }
+  .brand { display:flex; align-items:center; gap:15px; }
+  .brand .logo { width:54px;height:54px;border-radius:50%; background:#1db954; display:grid; place-items:center; box-shadow:0 12px 34px -8px rgba(29,185,84,0.8); }
+  .brand .logo svg { width:34px;height:34px; fill:#06120a; }
+  .brand .who { font-weight:700; font-size:18px; letter-spacing:-.2px; }
+  .brand .who small { display:block; font-weight:500; font-size:13px; color:#8fe3ab; letter-spacing:.4px; }
+  .eyebrow { display:inline-flex; align-items:center; gap:10px; padding:10px 18px; border-radius:999px;
+    background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(8px);
+    font-size:12.5px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#d7ffe6; }
+  .eyebrow .dot { width:9px;height:9px;border-radius:50%; background:#36ff8a; box-shadow:0 0 14px #36ff8a; }
+
+  .mid { flex:1; display:flex; flex-direction:column; justify-content:center; padding:18px 0; }
+  .kicker { font-family:'Sora',sans-serif; font-size:15px; font-weight:600; letter-spacing:5px; text-transform:uppercase;
+    color:#9affc4; margin-bottom:18px; }
+  h1 { font-family:'Sora',sans-serif; font-weight:800; font-size:78px; line-height:1.0; letter-spacing:-2.5px; max-width:760px; }
+  h1 .grad { background:linear-gradient(100deg,#fff 0%, #b7ffd2 40%, #7cf0ff 78%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sub { margin-top:24px; font-size:21px; font-weight:500; color:rgba(255,255,255,0.82); letter-spacing:.2px; }
+  .sub b { color:#1ed760; font-weight:700; }
+
+  .bottom { display:flex; align-items:center; justify-content:space-between; }
+  .tags { display:flex; gap:11px; }
+  .tags span { font-size:13px; font-weight:600; padding:9px 16px; border-radius:999px;
+    background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:#cfeede; }
+  .ministats { display:flex; gap:34px; }
+  .ministat .v { font-family:'Sora',sans-serif; font-weight:800; font-size:26px; letter-spacing:-.5px; }
+  .ministat .l { font-size:11px; font-weight:600; letter-spacing:1.2px; text-transform:uppercase; color:#79c79a; }
+
+  /* decorative visuals on the right */
+  .viz { position:absolute; right:64px; top:150px; z-index:1; opacity:.96; }
+  .eq { position:absolute; right:78px; top:172px; display:flex; align-items:flex-end; gap:9px; height:150px; z-index:1; }
+  .eq i { width:15px; border-radius:8px; display:block;
+    background:linear-gradient(to top,#1db954,#36ff8a); box-shadow:0 0 26px rgba(54,255,138,0.55); }
+  .eq i:nth-child(1){height:46%} .eq i:nth-child(2){height:88%} .eq i:nth-child(3){height:62%}
+  .eq i:nth-child(4){height:100%} .eq i:nth-child(5){height:54%} .eq i:nth-child(6){height:78%} .eq i:nth-child(7){height:38%}
+  .ring { position:absolute; right:300px; top:120px; width:118px; height:118px; border-radius:50%;
+    background:conic-gradient(#1db954 0 38%, #7c5cff 38% 64%, #ff4ecd 64% 82%, #00e0ff 82% 100%);
+    -webkit-mask:radial-gradient(circle, transparent 54%, #000 55%); mask:radial-gradient(circle, transparent 54%, #000 55%);
+    box-shadow:0 0 50px rgba(124,92,255,0.4); }
+  .glow-line { position:absolute; right:60px; bottom:120px; width:430px; height:90px; z-index:1; }
+</style>
+</head>
+<body>
+  <div class="stage"></div>
+
+  <!-- right-side decorative viz -->
+  <div class="ring"></div>
+  <div class="eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <svg class="glow-line" viewBox="0 0 430 90" fill="none">
+    <defs>
+      <linearGradient id="lg" x1="0" y1="0" x2="430" y2="0">
+        <stop offset="0" stop-color="#1db954"/><stop offset="0.6" stop-color="#36ff8a"/><stop offset="1" stop-color="#7cf0ff"/>
+      </linearGradient>
+      <linearGradient id="fillg" x1="0" y1="0" x2="0" y2="90">
+        <stop offset="0" stop-color="rgba(54,255,138,0.35)"/><stop offset="1" stop-color="rgba(54,255,138,0)"/>
+      </linearGradient>
+    </defs>
+    <path d="M0 70 L60 58 L120 64 L180 40 L240 48 L300 22 L360 30 L430 8 L430 90 L0 90 Z" fill="url(#fillg)"/>
+    <path d="M0 70 L60 58 L120 64 L180 40 L240 48 L300 22 L360 30 L430 8" stroke="url(#lg)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="300" cy="22" r="6" fill="#36ff8a"/><circle cx="430" cy="8" r="6" fill="#7cf0ff"/>
+  </svg>
+
+  <div class="pad">
+    <div class="top">
+      <div class="brand">
+        <span class="logo"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></span>
+        <div class="who">Streaming Insights<small>Personal Data Analysis Dashboard</small></div>
+      </div>
+      <div class="eyebrow"><span class="dot"></span> Portfolio Project</div>
+    </div>
+
+    <div class="mid">
+      <div class="kicker">Data Visualization · 2025</div>
+      <h1>Music Listening <span class="grad">Habits</span></h1>
+      <div class="sub">Personal Streaming Data Analysis — <b>top artists, genres &amp; listening rhythms</b></div>
+    </div>
+
+    <div class="bottom">
+      <div class="tags">
+        <span>HTML / CSS / JS</span><span>Chart.js</span><span>Interactive</span><span>UI / UX</span>
+      </div>
+      <div class="ministats">
+        <div class="ministat"><div class="v">6,120+</div><div class="l">Streams</div></div>
+        <div class="ministat"><div class="v">10</div><div class="l">Artists</div></div>
+        <div class="ministat"><div class="v">7</div><div class="l">Genres</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

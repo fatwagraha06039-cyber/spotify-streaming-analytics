@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Analytics — Business Intelligence Dashboard</title>
+  <meta name="description" content="Premium data analytics dashboard for Spotify streaming history. Business intelligence, predictive analytics, and data visualization." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="shell">
+
+    <!-- TOP BAR -->
+    <header class="topbar animate-in">
+      <div class="brand">
+        <div class="logo">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        </div>
+        <div class="brand-text">
+          <span class="title">Spotify Analytics</span>
+          <span class="subtitle">Business Intelligence Dashboard</span>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="clock" id="clock">--:--:--</div>
+        <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+          <span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span>
+        </button>
+        <button class="fs-btn" id="fsBtn" title="Fullscreen">⛶</button>
+        <button class="settings-btn" id="settingsBtn" title="Settings">⚙</button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero animate-in animate-in-delay-1">
+      <span class="hero-eyebrow"><span class="dot"></span> Live Analytics</span>
+      <h1>Your Streaming Data,<br>Decoded.</h1>
+      <p>Transform raw listening history into actionable business intelligence. Track trends, predict behavior, and uncover insights that matter.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="value counting" data-target="8742">0</span><span class="label">Total Records</span></div>
+        <div class="hero-stat"><span class="value counting" data-target="8">0</span><span class="label">Genres</span></div>
+        <div class="hero-stat"><span class="value counting" data-target="15">0</span><span class="label">Top Artists</span></div>
+        <div class="hero-stat"><span class="value counting" data-target="12">0</span><span class="label">Months</span></div>
+      </div>
+      <div class="equalizer" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </section>
+
+    <!-- FILTER BAR -->
+    <div class="filterbar animate-in animate-in-delay-2">
+      <div class="group">
+        <label>Period</label>
+        <select id="periodFilter"><option value="all">All Time</option><option value="2025">2025</option><option value="h1">H1 2025</option><option value="h2">H2 2025</option></select>
+      </div>
+      <div class="group">
+        <label>Genre</label>
+        <select id="genreFilter"><option value="all">All Genres</option></select>
+      </div>
+      <div class="spacer"></div>
+      <span class="last-updated" id="lastUpdated">Updated just now</span>
+      <button class="refresh-btn" id="refreshBtn">🔄 Refresh</button>
+      <button class="reset-btn" id="resetBtn">↺ Reset</button>
+      <div class="export-group">
+        <button class="export-btn" id="exportCSV">📄 CSV</button>
+        <button class="export-btn" id="exportPDF">📑 PDF</button>
+      </div>
+    </div>
+
+    <!-- KPI SECTION -->
+    <div class="section-divider"><h3>Key Performance Indicators</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="kpi-grid" id="kpiGrid"></div>
+      </div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="section-divider"><h3>Executive Summary</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="exec-summary" id="execSummary"></div>
+      </div>
+    </div>
+
+    <!-- MAIN CHARTS ROW 1 -->
+    <div class="grid">
+      <div class="col-8">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">📈</span> Monthly Streams Trend</h2><span class="chip" id="monthlyChip">12 months</span></div>
+          <div class="chart-container"><canvas id="monthlyChart"></canvas></div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">🎧</span> Genre Distribution</h2><span class="chip">by streams</span></div>
+          <div class="genre-wrap">
+            <div class="genre-chart-box"><canvas id="genreChart"></canvas><div class="genre-center"><span class="big" id="genreTotal">0</span><span class="sub">streams</span></div></div>
+            <div class="genre-pills" id="genrePills"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CHARTS ROW 2 -->
+    <div class="grid">
+      <div class="col-6">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">🎤</span> Top Artists</h2><span class="chip">by streams</span></div>
+          <ul class="artist-list" id="artistList"></ul>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">⏰</span> Hourly Listening Pattern</h2><span class="chip">24h cycle</span></div>
+          <div class="chart-container"><canvas id="hourlyChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTENING HEATMAP -->
+    <div class="section-divider"><h3>Listening Heatmap</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">🔥</span> Activity Heatmap</h2><span class="chip">daily intensity</span></div>
+          <div class="heatmap-container">
+            <div class="heatmap-header">
+              <div class="heatmap-nav">
+                <button id="hmPrev">‹</button>
+                <span class="month-label" id="hmMonth">January 2025</span>
+                <button id="hmNext">›</button>
+              </div>
+              <div class="heatmap-legend">
+                <span>Less</span>
+                <span class="sample" style="background:var(--bg-elevated)"></span>
+                <span class="sample" style="background:rgba(29,185,84,0.3)"></span>
+                <span class="sample" style="background:rgba(29,185,84,0.55)"></span>
+                <span class="sample" style="background:rgba(29,185,84,0.8)"></span>
+                <span class="sample" style="background:var(--accent)"></span>
+                <span>More</span>
+              </div>
+            </div>
+            <div class="heatmap-grid" id="heatmapGrid"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREDICTIVE ANALYTICS -->
+    <div class="section-divider"><h3>Predictive Analytics</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="predictive-grid" id="predictiveGrid"></div>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">📊</span> Forecast vs Actual</h2><span class="chip">3-month projection</span></div>
+          <div class="chart-container"><canvas id="forecastChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP SONGS TABLE -->
+    <div class="section-divider"><h3>Top Songs</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">🎵</span> Song Performance</h2><span class="chip" id="songsChip">10 tracks</span></div>
+          <div class="table-toolbar">
+            <div class="table-search">
+              <span>🔍</span>
+              <input type="text" id="songSearch" placeholder="Search songs or artists..." />
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="songsTable">
+              <thead>
+                <tr>
+                  <th data-sort="rank">Rank <span class="sort-icon"></span></th>
+                  <th data-sort="title">Song <span class="sort-icon"></span></th>
+                  <th data-sort="artist">Artist <span class="sort-icon"></span></th>
+                  <th data-sort="streams">Streams <span class="sort-icon"></span></th>
+                  <th data-sort="genre">Genre <span class="sort-icon"></span></th>
+                  <th data-sort="minutes">Time <span class="sort-icon"></span></th>
+                  <th data-sort="trend">Trend <span class="sort-icon"></span></th>
+                </tr>
+              </thead>
+              <tbody id="songsBody"></tbody>
+            </table>
+          </div>
+          <div class="pagination" id="pagination"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GENRE INTELLIGENCE -->
+    <div class="section-divider"><h3>Genre Intelligence</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-6">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">🎸</span> Genre Share</h2><span class="chip">distribution</span></div>
+          <div class="chart-container"><canvas id="genreShareChart"></canvas></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">📉</span> Genre Popularity Trend</h2><span class="chip">monthly</span></div>
+          <div class="chart-container"><canvas id="genreTrendChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LISTENING HABITS -->
+    <div class="section-divider"><h3>Listening Habits Intelligence</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="habits-grid" id="habitsGrid"></div>
+      </div>
+    </div>
+
+    <!-- DAILY PATTERN -->
+    <div class="grid">
+      <div class="col-6">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">📅</span> Day of Week Pattern</h2><span class="chip">weekly</span></div>
+          <div class="chart-container"><canvas id="dailyChart"></canvas></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card reveal">
+          <div class="card-head"><h2><span class="ic">🌙</span> Time of Day Distribution</h2><span class="chip">24h</span></div>
+          <div class="chart-container"><canvas id="timeDistChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA SOURCE -->
+    <div class="section-divider"><h3>Data Source & Documentation</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="source-grid" id="sourceGrid"></div>
+      </div>
+    </div>
+
+    <!-- SQL SHOWCASE -->
+    <div class="section-divider"><h3>SQL Analytics</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="card reveal" id="sqlSection"></div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS METHODOLOGY -->
+    <div class="section-divider"><h3>Analytics Methodology</h3><div class="line"></div></div>
+    <div class="grid">
+      <div class="col-12">
+        <div class="methodology-timeline" id="methodology"></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>Built with ❤️ using <a href="https://www.chartjs.org/" target="_blank">Chart.js</a>, Vanilla JavaScript & Data Analytics.</p>
+      <div class="tags">
+        <span>Data Visualization</span><span>Business Intelligence</span><span>Predictive Analytics</span><span>Frontend Engineering</span><span>Portfolio Project</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- SETTINGS MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <button class="modal-close" id="modalClose">×</button>
+      <h3>Dashboard Settings</h3>
+      <p style="color:var(--text-secondary);font-size:13px;margin-top:8px;">Coming soon: customize themes, chart types, and data sources.</p>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
